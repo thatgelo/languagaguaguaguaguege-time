@@ -11,22 +11,42 @@ languages = pd.read_csv(url)
 language_names = languages.iloc[:, 3].array
 native_scripts = languages.iloc[:, 4].array
 
-print(language_names)
-print(native_scripts)
+def generate_random_number(start, stop):
+    random_num = random.randint(start, stop)
+    return random_num
+ 
+def display_hint(random_number_generated):
+    print(native_scripts[random_number_generated])
 
+def correct_answer(random_number):
+    correct = language_names[random_number]
+    return correct
 
-def answer():
-    randomized_number = random.randint(0, 185)
-    correct_answer = language_names[randomized_number]
-    displayed_hint = native_scripts[randomized_number]
-    print(displayed_hint)
-    user_answer = input()
-    while user_answer.strip().lower() != correct_answer.strip().lower():
-        print("bad try again")
+def guessing_game(score):
+    game_state = True
+    while game_state:
+        random_number = generate_random_number(0, 184)
+        display_hint(random_number)
+        language_answer = correct_answer(random_number)
         user_answer = input()
-        if user_answer == "i hate this game":
-            answer()
-    print("asdlkfasjf")
-    
+        if user_answer.strip().lower() == language_answer.strip().lower():
+            print("You got it!")
+            score += 1
+            game_state = False
+        elif user_answer.strip().lower() == "no":
+            print("the answer was " + language_answer)
+            game_state = False    
+        elif user_answer.strip().lower() != language_answer.strip().lower():
+            print("you suck")
+    play_again = "y"
+    dont_play = "n"
+    print("play again? [y]es or [n]o?")
+    choice = input().strip().lower()
+    if choice == play_again:
+        guessing_game(score)
+    elif choice == dont_play:
+        print("thank u for playing! your score is: " + str(score))
+        
 
-answer()
+
+guessing_game(0)
