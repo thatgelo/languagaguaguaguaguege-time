@@ -45,7 +45,7 @@ def guessing_game(score):
     play_again = "y"
     dont_play = "n"
     ### something wrong here, check scores mayhaps
-    print("game over :D do you want to play again? [y]es or [n]o?")
+    print("game over :D you got " + str(score) + " correct so far! do you want to play again? [y]es or [n]o?")
     choice = input().strip().lower()
     if choice == play_again:
         guessing_game(score)
