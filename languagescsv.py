@@ -34,7 +34,6 @@ def guessing_game(score):
             print("You got it!")
             correct_guesses.append(language_answer)
             score += 1
-            game_state = False
         elif user_answer.strip().lower() == "no":
             print("the answer was " + language_answer)
             incorrect_guesses.append(language_answer)
