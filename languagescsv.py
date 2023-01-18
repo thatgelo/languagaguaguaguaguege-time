@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pandas as pd
 import numpy as np
 import random
@@ -15,41 +17,58 @@ def generate_random_number(start, stop):
     return random_num
  
 def display_hint(random_number_generated):
-    print("the native script is: " + native_scripts[random_number_generated])
+    # print("randnumgend: " + str(random_number_generated))
+    # print("nativescripts[randnumgend]: " + str(native_scripts[random_number_generated]))
+    # print("utf-8 encoded: " + str((native_scripts[random_number_generated]).encode("utf-8")))
+    print("Guess the English name for the following language. The native script is: " 
+          + str(native_scripts[random_number_generated]))
 
 def correct_answer(random_number):
     correct = language_names[random_number]
     return correct
 
 def guessing_game(score):
+    
     game_state = True
     correct_guesses = []
     incorrect_guesses = []
+    
+    # want to stop showing languages that were gotten correct already
+    
     while game_state:
+        
         random_number = generate_random_number(0, len(language_names) - 1)
-        display_hint(random_number)
-        language_answer = correct_answer(random_number)
-        user_answer = input()
-        if user_answer.strip().lower() == language_answer.strip().lower():
-            print("You got it!")
-            correct_guesses.append(language_answer)
-            score += 1
-        elif user_answer.strip().lower() == "no":
-            print("the answer was " + language_answer)
-            incorrect_guesses.append(language_answer)
-            game_state = False    
-        elif user_answer.strip().lower() != language_answer.strip().lower():
-            print("nice try, the language is " + str(language_answer))
-            incorrect_guesses.append(language_answer)
+        # print("randnum: " + str(random_number))
+        
+        if native_scripts[random_number] not in correct_guesses: 
+            display_hint(random_number)
+            language_answer = correct_answer(random_number)
+            user_answer = input()
+            
+            if user_answer.strip().lower() in language_answer.strip().lower():
+                print("You got it!\n\n")
+                correct_guesses.append(language_answer)
+                score += 1
+                
+            elif user_answer.strip().lower() == "no":
+                print("The answer was " + language_answer + "\n\n")
+                incorrect_guesses.append(language_answer)
+                game_state = False    
+                
+            elif user_answer.strip().lower() not in language_answer.strip().lower():
+                print("Nice try, the language is " + str(language_answer) + "\n\n")
+                incorrect_guesses.append(language_answer)
+            
     play_again = "y"
     dont_play = "n"
+    
     ### something wrong here, check scores mayhaps
-    print("game over :D you got " + str(score) + " correct so far! do you want to play again? [y]es or [n]o?")
+    print("Game over D: You got " + str(score) + " correct so far! Do you want to play again? [y]es or [n]o?")
     choice = input().strip().lower()
-    if choice == play_again:
+    if play_again in choice:
         guessing_game(score)
-    elif choice == dont_play:
-        print("thank u for playing! your score is: " + str(score) + " and you got " + str(len(incorrect_guesses)) + " wrong!")
+    elif dont_play in choice:
+        print("Thank you for playing! Your score is: " + str(score) + " and you got " + str(len(incorrect_guesses)) + " wrong!")
         print(incorrect_guesses)
         
 
