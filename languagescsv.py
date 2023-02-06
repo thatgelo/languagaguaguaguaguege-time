@@ -50,7 +50,9 @@ def guessing_game(score):
         guessing_game(score)
     elif choice == dont_play:
         print("thank u for playing! your score is: " + str(score) + " and you got " + str(len(incorrect_guesses)) + " wrong!")
-        print(incorrect_guesses)
+        print("you got these languages correct: " + str(correct_guesses))
+        print("the ones u got wrong were: " + str(incorrect_guesses))
+    
         
 
 
